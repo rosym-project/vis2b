@@ -39,7 +39,9 @@ void create_frame(osg::Transform *root)
     x_tf->setMatrix(x_matrix);
     osg::ShapeDrawable *x_shape = new osg::ShapeDrawable(new osg::Cylinder(pos, radius, height));
     x_shape->setColor(osg::Vec4(1.0, 0.0, 0.0, 1.0));
-    x_tf->addChild(x_shape);
+    osg::Geode *x_geode = new osg::Geode();
+    x_geode->addDrawable(x_shape);
+    x_tf->addChild(x_geode);
     root->addChild(x_tf);
 
     osg::MatrixTransform *y_tf = new osg::MatrixTransform();
@@ -47,13 +49,17 @@ void create_frame(osg::Transform *root)
     y_tf->setMatrix(y_matrix);
     osg::ShapeDrawable *y_shape = new osg::ShapeDrawable(new osg::Cylinder(pos, radius, height));
     y_shape->setColor(osg::Vec4(0.0, 1.0, 0.0, 1.0));
-    y_tf->addChild(y_shape);
+    osg::Geode *y_geode = new osg::Geode();
+    y_geode->addDrawable(y_shape);
+    y_tf->addChild(y_geode);
     root->addChild(y_tf);
 
     osg::MatrixTransform *z_tf = new osg::MatrixTransform();
     osg::ShapeDrawable *z_shape = new osg::ShapeDrawable(new osg::Cylinder(pos, radius, height));
     z_shape->setColor(osg::Vec4(0.0, 0.0, 1.0, 1.0));
-    z_tf->addChild(z_shape);
+    osg::Geode *z_geode = new osg::Geode();
+    z_geode->addDrawable(z_shape);
+    z_tf->addChild(z_geode);
     root->addChild(z_tf);
 }
 
