@@ -1,4 +1,5 @@
 add_subdirectory(nbx)
+add_subdirectory(ubx)
 add_subdirectory(example)
 
 # Forward exported libraries
