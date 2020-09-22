@@ -84,7 +84,10 @@ void vis2b_osg_configure(struct vis2b_osg_nbx *b)
     osg::MatrixTransform *world = new osg::MatrixTransform();
     create_frame(world);
     if ((b->size > 0) && (b->mesh)) {
-        osg::Node *mesh = osgDB::readNodeFile(b->mesh[0]);
+        std::string file = b->mesh_base ? std::string(b->mesh_base) + "/" : "";
+        file += b->mesh[0];
+
+        osg::Node *mesh = osgDB::readNodeFile(file);
         mesh->asGroup()->getChild(0)->asGeode()->setStateSet(material_state_set);
         world->addChild(mesh);
     }
@@ -97,7 +100,10 @@ void vis2b_osg_configure(struct vis2b_osg_nbx *b)
         create_frame(b->osg->tf[i]);
 
         if (b->mesh) {
-            osg::Node *mesh = osgDB::readNodeFile(b->mesh[i + 1]);
+            std::string file = b->mesh_base ? std::string(b->mesh_base) + "/" : "";
+            file += b->mesh[i + 1];
+
+            osg::Node *mesh = osgDB::readNodeFile(file);
             mesh->asGroup()->getChild(0)->asGeode()->setStateSet(material_state_set);
             b->osg->tf[i]->addChild(mesh);
         }

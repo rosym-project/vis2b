@@ -28,6 +28,7 @@ int main(void)
     struct vis2b_osg_nbx vis = {
         // Configuration
         .size = NR_JOINTS,
+        .mesh_base = "./",
         .mesh = (const char *[]) {
             "cylinder.stl",
             "cylinder.stl",

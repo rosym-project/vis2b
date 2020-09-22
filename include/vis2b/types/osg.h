@@ -15,6 +15,7 @@ struct vis2b_osg_nbx
 {
     // Configuration
     int size;
+    const char *mesh_base;
     const char **mesh;          // [size + 1] or NULL
     // Ports
     const struct gc_pose *pose; // [size]
