@@ -14,6 +14,7 @@ include_directories(
 
 add_subdirectory(src)
 
+configure_file(misc/cylinder.stl cylinder.stl COPYONLY)
 
 install(
   DIRECTORY include/
