@@ -8,6 +8,7 @@ pkg_get_variable(UBX_EXEC_PREFIX ${UBX_MODULE_NAME} exec_prefix)
 file(RELATIVE_PATH UBX_MODDIR_REL ${UBX_EXEC_PREFIX} ${UBX_MODDIR})
 
 include_directories(${UBX_INCLUDE_DIRS})
+link_directories(${UBX_LIBRARY_DIRS})
 
 add_library(vis2b_ubx SHARED vis2b_osg_ubx.c)
 target_link_libraries(vis2b_ubx PRIVATE vis2b_osg ${UBX_LIBRARIES})
