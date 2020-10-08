@@ -9,7 +9,7 @@ target_link_libraries(vis2b_osg PRIVATE ${OPENSCENEGRAPH_LIBRARIES})
 
 install(
   TARGETS vis2b_osg
-  EXPORT vis2b_osg-targets
+  EXPORT vis2b-targets
   RUNTIME DESTINATION bin
   LIBRARY DESTINATION lib
   ARCHIVE DESTINATION lib
