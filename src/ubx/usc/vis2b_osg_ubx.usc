@@ -1,0 +1,35 @@
+local bd = require("blockdiagram")
+return bd.system
+{
+   -- import microblx modules
+   imports = {
+      "stdtypes", "ptrig", "lfds_cyclic", "vis2b",
+   },
+   -- describe which blocks to instantiate
+   blocks = {
+      { name="vis",   type="vis2b/osg" },
+      { name="trig1", type="ubx/ptrig" }
+   },
+   -- connect blocks
+   connections = {
+   },
+
+   -- configure blocks
+   configurations = {
+      { name="vis", config = { nr_joints=2,
+                               mesh_base=".",
+                               mesh_names="cylinder.stl:cylinder.stl:cylinder.stl" } },
+      -- configure a trigger
+      { name="trig1", config = { period = {sec=0, usec=10000 },
+                                 sched_policy="SCHED_OTHER",
+                                 sched_priority=0,
+                                 chain0={
+                                    -- the #<blockname> directive will
+                                    -- be resolved to an actual
+                                    -- reference to the respective
+                                    -- block once instantiated
+                                    { b="#vis", num_steps=1, measure=0 }
+      } } }
+   },
+}
+
