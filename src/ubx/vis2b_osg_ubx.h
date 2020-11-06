@@ -92,7 +92,7 @@ void vis2b_osg_ubx_mod_cleanup(ubx_node_t *nd)
 	for (unsigned int i=0; i<ARRAY_SIZE(types); i++)
 		ubx_type_unregister(nd, types[i].name);
 
-	ubx_block_unregister(nd, "vis2b_osg_ubx");
+	ubx_block_unregister(nd, "vis2b/osg");
 }
 
 /* declare module init and cleanup functions, so that the ubx core can
