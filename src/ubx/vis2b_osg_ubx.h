@@ -72,7 +72,7 @@ ubx_proto_block_t vis2b_osg_ubx_block = {
 /* vis2b_osg_ubx module init and cleanup functions */
 int vis2b_osg_ubx_mod_init(ubx_node_t* nd)
 {
-	ubx_log(UBX_LOGLEVEL_DEBUG, nd, "%s", __func__);
+	ubx_log(UBX_LOGLEVEL_DEBUG, nd, "vis2b/osg", __func__);
 
 	for (unsigned int i=0; i<ARRAY_SIZE(types); i++) {
 		if(ubx_type_register(nd, &types[i]) != 0)
@@ -87,12 +87,12 @@ int vis2b_osg_ubx_mod_init(ubx_node_t* nd)
 
 void vis2b_osg_ubx_mod_cleanup(ubx_node_t *nd)
 {
-	ubx_log(UBX_LOGLEVEL_DEBUG, nd, "%s", __func__);
+	ubx_log(UBX_LOGLEVEL_DEBUG, nd, "vis2b/osg", __func__);
 
 	for (unsigned int i=0; i<ARRAY_SIZE(types); i++)
 		ubx_type_unregister(nd, types[i].name);
 
-	ubx_block_unregister(nd, "vis2b_osg_ubx");
+	ubx_block_unregister(nd, "vis2b/osg");
 }
 
 /* declare module init and cleanup functions, so that the ubx core can
