@@ -22,7 +22,7 @@ char vis2b_osg_ubx_meta[] =
 
 /* declaration of block configuration */
 ubx_proto_config_t vis2b_osg_ubx_config[] = {
-	{ .name="nr_joints", .type_name = "int", .min=1, .max=1, .doc="Number of joints" },
+	{ .name="nr_joints", .type_name = "long", .min=1, .max=1, .doc="Number of joints" },
 	{ .name="mesh_base", .type_name = "char", .min=0, .max=0, .doc="Directory from which meshes should be loaded" },
 	{ .name="mesh_names", .type_name = "char", .min=0, .max=0, .doc="Colon-separated list of mesh file names" },
 	{ 0 },
