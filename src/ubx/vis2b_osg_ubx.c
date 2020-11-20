@@ -26,13 +26,7 @@ void vis2b_osg_ubx_free_private_data(struct vis2b_osg_ubx_info *inf)
         }
     }
 
-    if (inf->pose) {
-        for (int i = 0; i < inf->nr_joints; i++) {
-            if (inf->pose[i].translation) free(inf->pose[i].translation);
-            if (inf->pose[i].rotation) free(inf->pose[i].rotation);
-        }
-    }
-
+    free(inf->pose);
     free(inf);
 }
 
@@ -103,24 +97,6 @@ int vis2b_osg_ubx_init(ubx_block_t *b)
         goto out;
     }
 
-    for (int i = 0; i < inf->nr_joints; ++i) {
-        if (!(inf->pose[i].translation = calloc(1, sizeof(struct vector3)))) {
-            ubx_err(b, "vis2b_osg_ubx: failed to alloc memory for translation");
-            ret = EOUTOFMEM;
-            goto out;
-        }
-
-        if (!(inf->pose[i].rotation = calloc(1, sizeof(struct matrix3x3)))) {
-            ubx_err(b, "vis2b_osg_ubx: failed to alloc memory for rotation");
-            ret = EOUTOFMEM;
-            goto out;
-        }
-
-        inf->pose[i].rotation->row[0].data[0] = 1.0;
-        inf->pose[i].rotation->row[1].data[1] = 1.0;
-        inf->pose[i].rotation->row[2].data[2] = 1.0;
-    }
-
     // Connect to nanoblx ports
     struct vis2b_osg_nbx *nblock = &inf->nblock;
     nblock->size = inf->nr_joints;
@@ -160,9 +136,14 @@ void vis2b_osg_ubx_cleanup(ubx_block_t *b)
 
 void vis2b_osg_ubx_step(ubx_block_t *b)
 {
+    long len;
+
     struct vis2b_osg_ubx_info *inf = (struct vis2b_osg_ubx_info *)b->private_data;
 
-    read_gc_pose_array(inf->ports.poses, inf->pose, inf->nr_joints);
+    len = read_gc_pose_array(inf->ports.poses, inf->pose, inf->nr_joints);
+
+    if (len <= 0)
+        return;
 
     // Render the latest data (reading the poses may not have produced new data)
     vis2b_osg_update(&inf->nblock);
