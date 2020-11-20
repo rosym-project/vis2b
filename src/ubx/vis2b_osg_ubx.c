@@ -5,7 +5,7 @@
 
 struct vis2b_osg_ubx_info
 {
-    int nr_joints;
+    long nr_joints;
     const char *mesh_base;
     char **mesh;
     struct gc_pose *pose;
@@ -51,8 +51,8 @@ int vis2b_osg_ubx_init(ubx_block_t *b)
     update_port_cache(b, &inf->ports);
 
     // Get configuration information
-    const int *nr_joints;
-    int nr_joints_len = cfg_getptr_int(b, "nr_joints", &nr_joints);
+    const long *nr_joints;
+    int nr_joints_len = cfg_getptr_long(b, "nr_joints", &nr_joints);
     if (nr_joints_len != 1) {
         ubx_err(b, "vis2b_osg_ubx: nr_joints must be supplied");
         goto out;
